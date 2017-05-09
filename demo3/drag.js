@@ -4,11 +4,20 @@
         //跨浏览器绑定事件
         addHandler: function(element, type, handler){  
             if(element.addEventListener){
-                element.addEventListener(type, handler, false);
+                element.addEventListener(type, handler, false);  
             }else if(element.attachEvent){
                 element.attachEvent("on"+type,handler);
             }else{
                 element["on"+type]=handler;
+            }
+        },
+        removeHandler: function(element, type, handler){
+            if(element.removeEventListener){
+                element.removeEventListener(type, handler, false);
+            }else if (element.detachEvent){
+                element.detachEvent("on"+type, handler);
+            }else{
+                element["on"+type]=null;
             }
         },
         //获取元素的样式
@@ -90,7 +99,9 @@
         });
     }
 
-    EventUtil.addHandler(document, "mousemove", function(event) {
+    EventUtil.addHandler(document, "mousemove", mouseMove);
+
+    function mouseMove(event){
         if (draggableConfig.draggingObj) {
             var mouse = draggableConfig.mouse,
                 draggingObj = draggableConfig.draggingObj;
@@ -98,8 +109,13 @@
                 "left": parseInt(event.clientX - mouse.x + draggingObj.x) + "px",
                 "top": parseInt(event.clientY - mouse.y + draggingObj.y) + "px"
             });
+
+            EventUtil.removeHandler(document, "mousemove", mouseMove);
+            setTimeout(function(){
+                EventUtil.addHandler(document, "mousemove", mouseMove);
+            },25);
         }
-    })
+    }
 
     EventUtil.addHandler(document, "mouseup", function(event) {
         draggableConfig.draggingObj = null;
