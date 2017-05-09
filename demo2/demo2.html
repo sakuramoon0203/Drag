@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>drag</title>
+    <link rel="stylesheet" type="text/css" href="demo2.css">
+</head>
+
+<body>
+    <div id="demo1">
+        <ul class="panel-list">
+            <li class="panel-item"></li>
+            <li class="panel-item"></li>
+            <li class="panel-item"></li>
+            <li class="panel-item"></li>
+            <li class="panel-item"></li>
+        </ul>
+        <h2>拖拽下面的方块到上面任意容器中</h2>
+        <!-- 设置draggable使元素成为可拖拽元素 -->
+        <span class="movable" id="demo1-src" draggable="true"></span>
+    </div>
+    <div id="demo2">
+        <h3>从文件夹中拖拽图片到下面的区域进行预览</h3>
+        <ul class="preview"></ul>
+    </div>
+    
+    <script src="demo2.js"></script>
+</body>
+
+</html>
